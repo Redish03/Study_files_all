@@ -15,7 +15,7 @@ int main()
 {
     cin >> N >> K;
 
-    vector<pair<int, pair<int, int>>> virus;
+    queue<pair<int, pair<int, int>>> virus;
     for (int i = 1; i <= N; i++)
     {
         for (int j = 1; j <= N; j++)
@@ -36,7 +36,7 @@ int main()
 
     sort(virus.begin(), virus.end());
     int cur_time = 0;
-    while (cur_time < S)
+    while (!q.empty() || cur_time < S)
     {
         int vircount = virus.size();
 
@@ -51,7 +51,7 @@ int main()
                 int ny = cur_y + dy[j];
                 int nx = cur_x + dx[j];
 
-                if (check[ny][nx]) // 방문한 상태라면
+                if (check[ny][nx]) //방문한 상태라면
                 {
                     continue;
                 }
@@ -60,10 +60,11 @@ int main()
                     continue;
                 }
                 map[ny][nx] = cur_vir;                // 맵에 현재 바이러스를 넣어준다.
-                virus.push_back({cur_vir, {ny, nx}}); // 현재 바이러스 번호와 위치를 벡터에 넣는다.
+                virus.push_back({cur_vir, {ny, nx}}); //현재 바이러스 번호와 위치를 벡터에 넣는다.
             }
+            virus.pop();
         }
-        if (map[Y][X]) // 만약 구할 곳의 좌표에 값이 있다면 반복문을 벗어난다.
+        if (map[Y][X]) //만약 구할 곳의 좌표에 값이 있다면 반복문을 벗어난다.
         {
             break;
         }
