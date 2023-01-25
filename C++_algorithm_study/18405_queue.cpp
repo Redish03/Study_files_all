@@ -55,7 +55,7 @@ int main()
                 {
                     continue;
                 }
-                if (1 > ny || ny > N || 1 > nx || nx > N) // 맵 밖을 벗어났다면
+                if (1 > ny || ny > N || 1 > nx || nx > N) // 맵 밖을 벗어났다면 
                 {
                     continue;
                 }
