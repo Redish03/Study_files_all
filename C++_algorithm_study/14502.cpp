@@ -28,8 +28,8 @@ int dfs(int x, int y)
 
     while(!q.empty())
     {
-        int curx = q.front();
-        int cury = q.second();
+        int curx = q.front().first;
+        int cury = q.front().second;
         q.pop();
 
         for(int i = 0; i < 4; i++)
@@ -56,7 +56,7 @@ int dfs(int x, int y)
             }
         }
     }
-    ans = max(count, ans);
+    return ans = max(count, ans);
 }
 
 int main()
@@ -74,4 +74,5 @@ int main()
             }
         }
     }
+    cout << dfs(0, 0);
 }
