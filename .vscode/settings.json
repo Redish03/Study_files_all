@@ -8,7 +8,9 @@
     "vector": "cpp",
     "iostream": "cpp",
     "xstring": "cpp",
-    "xiosbase": "cpp"
+    "xiosbase": "cpp",
+    "xlocale": "cpp",
+    "xmemory": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
