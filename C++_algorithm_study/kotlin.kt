@@ -1,5 +1,5 @@
 package com.example.myfirstandroid
-
+/*
 fun main(){
 
 }
@@ -15,7 +15,7 @@ fun maxBy(a: Int, b : Int) : Int{
 
 }
 
-
+*/
 
 
 
