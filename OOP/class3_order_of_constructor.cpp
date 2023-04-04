@@ -23,3 +23,13 @@ public:
 	void print() { cout << "(" << x << ", " << y << ")" << endl; }
 };
 
+Cpoint p1(1, 1);
+Cpoint p2(2, 2);
+
+int main()
+{
+    Cpoint p3(3, 3);
+    Cpoint p4(4, 4);
+
+    return 0;
+}
