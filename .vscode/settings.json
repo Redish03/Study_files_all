@@ -10,7 +10,8 @@
     "xstring": "cpp",
     "xiosbase": "cpp",
     "xlocale": "cpp",
-    "xmemory": "cpp"
+    "xmemory": "cpp",
+    "ostream": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
