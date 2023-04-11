@@ -27,8 +27,8 @@ int main()
     for (int i = 1; i <= 5; i++)
     {
         Cur = (Node *)malloc(sizeof(Node));
-        Cur->data = rand() % 10 + 1;
-        printf("%d번째 데이터 : %d\n", i, Cur->data);
+        Cur->num = rand() % 10 + 1;
+        printf("%d번째 데이터 : %d\n", i, Cur->num);
         Cur->left = NULL;
         Cur->right = NULL;
 
@@ -42,8 +42,8 @@ int main()
         while(1)
         {
             Parent = Initial;
-            printf("InitialRoot : %d\n", InitialRoot->data);
-            if(Initial->data > Cur-> data)
+            printf("InitialRoot : %d\n", Initial->num);
+            if(Initial->num > Cur-> num)
             {
                 if(Initial->left)
                 {
