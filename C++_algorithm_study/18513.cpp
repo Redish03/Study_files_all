@@ -8,6 +8,7 @@ set<int> se;
 queue<int> q; 
 int dir[2] = { 1,-1 };
 long long result;
+
 void bfs() {
 	int dis = 0;
 	while (!q.empty()) {
