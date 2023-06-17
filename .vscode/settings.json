@@ -13,7 +13,8 @@
     "xmemory": "cpp",
     "ostream": "cpp",
     "deque": "cpp",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "istream": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
