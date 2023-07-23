@@ -14,7 +14,9 @@
     "ostream": "cpp",
     "deque": "cpp",
     "stdio.h": "c",
-    "istream": "cpp"
+    "istream": "cpp",
+    "xtree": "cpp",
+    "ios": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
