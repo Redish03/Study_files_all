@@ -62,7 +62,7 @@ int main()
         if (error)
         {
             cout << "error" << endl;
-                }
+        }
         else
         {
             cout << "[";
