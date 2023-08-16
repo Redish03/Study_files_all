@@ -17,7 +17,8 @@ void bfs()
 {
     while (!q.empty())
     {
-        const auto &[x, y] = q.front();
+        int x = q.front().first;
+        int y = q.front().second;
         q.pop();
 
         for (int i = 0; i < 4; i++)
@@ -57,7 +58,8 @@ int main()
             {
                 visited[i][j] = 1;
             }
-            if(arr[i][j] == 0) {
+            if (arr[i][j] == 0)
+            {
                 Zero_exist = true;
             }
         }
@@ -67,7 +69,8 @@ int main()
 
     int Max = 0;
 
-    if(!Zero_exist) {
+    if (!Zero_exist)
+    {
         cout << 0;
         return 0;
     }
