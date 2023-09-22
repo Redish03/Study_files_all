@@ -5,21 +5,23 @@ using namespace std;
 class Seller
 {
 private:
-    int itemCnt, itemPrice, MyMoney;
+    int itemCnt;
+    const int itemPrice;
+    int MyMoney;
 
 public:
-    void init(int item, int price, int money)
-    {
-        itemCnt = item;
-        itemPrice = price;
-        MyMoney = money;
-    }
+    // 초기화 리스트 기법 -> const 이용 시 초기화 가능
+    Seller(int item, int price, int money) : itemCnt(item), itemPrice(price), MyMoney(money) {}
     int SaleItems(int money)
     {
         int num = money / itemPrice;
         MyMoney += money;
         itemCnt -= num;
         return num;
+    }
+    ~Seller()
+    {
+        cout << "Seller object destructor" << endl;
     }
     void showResult()
     {
@@ -33,15 +35,24 @@ class Buyer
     int itemCnt, Mymoney;
 
 public:
-    void init(int item, int money)
+    Buyer(int item, int money)
     {
         itemCnt = item;
         Mymoney = money;
     }
+    // void init(int item, int money)
+    // {
+    //     itemCnt = item;
+    //     Mymoney = money;
+    // }
     void BuyItems(Seller &s, int money)
     {
         itemCnt += s.SaleItems(money);
         Mymoney -= money;
+    }
+    ~Buyer()
+    {
+        cout << "Buyer object destructor" << endl;
     }
     void showResult()
     {
@@ -52,10 +63,10 @@ public:
 
 int main()
 {
-    Seller seller;
-    Buyer buyer;
-    seller.init(540, 10, 0);
-    buyer.init(0, 1500);
+    Seller seller(540, 10, 0);
+    Buyer buyer(0, 1500);
+    // seller.init(540, 10, 0);
+    // buyer.init(0, 1500);
 
     int num;
     cout << "Payed money : ";
