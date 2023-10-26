@@ -21,11 +21,14 @@ class Family
 
 public:
     Family(string name, int size){
-
+        
     };
     void show();
     ~Family(){};
 };
+
 int main()
 {
+    Family *simpson = new Family("simpson", 3);
+    simpson->s
 }
