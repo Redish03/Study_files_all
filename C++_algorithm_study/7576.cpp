@@ -1,17 +1,16 @@
 #include <iostream>
 #include <queue>
-#include <algorithm>
-#include <vector>
 
 using namespace std;
 
 int N, M;
+int days = -1;
+bool flag = false;
 int arr[1001][1001];
-bool visited[1001][1001];
+int visited[1001][1001];
 int dx[] = {0, 0, -1, 1};
 int dy[] = {1, -1, 0, 0};
 queue<pair<int, int>> q;
-bool Zero_exist = false;
 
 void bfs()
 {
@@ -28,65 +27,63 @@ void bfs()
 
             if (nx < 0 || ny < 0 || nx >= N || ny >= M)
                 continue;
-            if (visited[nx][ny])
+            if (visited[nx][ny] != -1)
                 continue;
-            if (arr[nx][ny] == -1)
+            if (arr[nx][ny] != 0)
                 continue;
 
-            visited[nx][ny] = true;
-            arr[nx][ny] = arr[x][y] + 1;
             q.push(make_pair(nx, ny));
+            // visited에 그 칸이 익는 것을 체크한다.
+            visited[nx][ny] = visited[x][y] + 1;
         }
     }
 }
 
 int main()
 {
-    cin >> N >> M;
+    // 입력
+    cin >> M >> N;
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < M; j++)
         {
             cin >> arr[i][j];
-            visited[i][j] = 0;
+            visited[i][j] = -1;
             if (arr[i][j] == 1)
             {
                 q.push(make_pair(i, j));
-                visited[i][j] = 1;
-            }
-            else if (arr[i][j] == -1)
-            {
-                visited[i][j] = 1;
-            }
-            if (arr[i][j] == 0)
-            {
-                Zero_exist = true;
+                visited[i][j]++;
             }
         }
     }
 
     bfs();
 
-    int Max = 0;
-
-    if (!Zero_exist)
-    {
-        cout << 0;
-        return 0;
-    }
-
+    // 다시 arr과 visited를 훑는다.
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < M; j++)
         {
-            Max = max(Max, arr[i][j]);
-            if (arr[i][j] == 0)
+            // days에 저장된 일이 visited 보다 작거나 같으면 visited를 한다.
+            if (days <= visited[i][j])
             {
-                cout << -1;
-                return 0;
+                days = visited[i][j];
             }
+
+            // 방문하지 않았고, 토마토가 익지 않은 경우 days = -1로 바꿔준다.
+            if (arr[i][j] == 0 && visited[i][j] == -1)
+            {
+                days = -1;
+                flag = true;
+                break;
+            }
+        }
+        // 토마토가 익지 않은 경우 (0인 경우) days = -1인 상태로 반복문을 탈출한다.
+        if (flag)
+        {
+            break;
         }
     }
 
-    cout << Max;
+    cout << days;
 }
