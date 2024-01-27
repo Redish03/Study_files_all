@@ -1,38 +1,33 @@
 #include <iostream>
-#include <stack>
+#include <algorithm>
 
 using namespace std;
 
-int N, S = 0;
-int arr[21] = {0, };
-bool check[21] = {0, };
-int answer = 0;
-stack<int> st;
+int count_ = 0;
+int arr[21];
+int N, S;
 
-void dfs()
+void partSet(int sum, int idx)
 {
-    
-    for(int i = 0; i < ?; i++)
+    if (idx == N)
+        return;
+    if (sum + arr[idx] == S)
     {
-        if(!check[i])
-        {
-            arr[]
-        }
+        count_++;
     }
+    partSet(sum, idx + 1);
+    partSet(sum + arr[idx], idx + 1);
 }
 
 int main()
 {
     cin >> N >> S;
-    for(int i = 0; i < N; i++)
-    {
-        cin >> arr[i];
-    }
 
     for (int i = 0; i < N; i++)
     {
-        st.push(arr[i]);
+        cin >> arr[i];
     }
-
-    cout << answer;
+    sort(arr, arr + N);
+    partSet(0, 0);
+    cout << count_;
 }

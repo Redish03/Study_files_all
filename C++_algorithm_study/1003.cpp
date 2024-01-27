@@ -1,27 +1,33 @@
 #include <iostream>
-#include <cstring>
+#include <vector>
+#include <queue>
+#include <algorithm>
 
 using namespace std;
 
-int dp[42] = {0};
-int zero_x, one_y;
+int T, N;
+vector<pair<int, int>> dp(40, {0, 0});
 
-int fib(int n)
+pair<int, int> fib(int n)
 {
+    if (dp[n].first != 0 & dp[n].second != 0)
+    {
+        return dp[n];
+    }
+
     if (n == 0)
     {
-        zero_x++;
-        return 0;
-    }
-    if (n == 1)
-    {
-        one_y++;
-        return 1;
-    }
-    if (dp[n] != 0)
+        dp[n] = {1, 0};
         return dp[n];
+    }
+    else if (n == 1)
+    {
+        dp[n] = {0, 1};
+        return dp[n];
+    }
 
-    dp[n] = fib(n - 1) + fib(n - 2);
+    dp[n].first = fib(n - 1).first + fib(n - 2).first;
+    dp[n].second = fib(n - 1).second + fib(n - 2).second;
     return dp[n];
 }
 
@@ -31,14 +37,24 @@ int main()
     cout.tie(NULL);
     ios::sync_with_stdio(false);
 
-    int T, N;
+    vector<int> test_case;
+    int max_testcase = -1;
+
     cin >> T;
     for (int i = 0; i < T; i++)
     {
-        zero_x = 0;
-        one_y = 0;
         cin >> N;
-        fib(N);
-        cout << zero_x << " " << one_y << '\n';
+        test_case.push_back(N);
+        if (N > max_testcase)
+        {
+            max_testcase = N;
+        }
+    }
+
+    fib(max_testcase);
+
+    for (int i = 0; i < test_case.size(); i++)
+    {
+        cout << dp[test_case[i]].first << " " << dp[test_case[i]].second << '\n';
     }
 }

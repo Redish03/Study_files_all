@@ -26,6 +26,8 @@ int main()
     int e = stoi(E);
     int q = stoi(Q);
 
+    string str;
+
     while(cin >> chatt >> chatid)
     {   
         int str = chatt[0] * 1000 + chatt[1] * 100 + chatt[3] * 10 + chatt[4];

@@ -1,78 +1,121 @@
 #include <iostream>
 #include <queue>
-#include <vector>
 #include <algorithm>
+#include <cstring>
 
 using namespace std;
 
-int dx[] = {0, 0, 1, -1};
+int N, M;
+int arr[8][8];
+int arr2[8][8];
+bool visited[8][8];
+int wall_count = 3;
+int dx[] = {0, 0, -1, 1};
 int dy[] = {1, -1, 0, 0};
-queue<pair<int, int>> q;
-int check[8][8] = {0};
-int map[8][8];
-vector<pair<int, int>> virus;
-int N, M, ans = 0;
+int answer = -1;
 
-int dfs(int x, int y)
+void bfs()
 {
-    for (int i = 0; i < N; i++)
-    {
-        for(int j = 0; j < M; j++)
-        {
-            if(map[i][j] == 2)
-            {
-                q.push(make_pair(i, j));
-            }
-        }
-    }
-
-    while(!q.empty())
-    {
-        int curx = q.front().first;
-        int cury = q.front().second;
-        q.pop();
-
-        for(int i = 0; i < 4; i++)
-        {
-            int nx = curx + dx[i];
-            int ny = cury + dy[i];
-            if(nx < 0 || nx >= N || ny < 0|| ny >= M)
-            if(map[nx][ny] == 0)
-            {
-                map[nx][ny] = 2;
-                q.push({nx, ny});
-            }
-        }
-    }
-
-    int count = 0;
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < M; j++)
         {
-            if(map[i][j] == 0)
+            arr2[i][j] = arr[i][j];
+        }
+    }
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            // 바이러스 발견시 BFS 시작.
+            if (arr2[i][j] == 2)
             {
-                count++;
+                cout << "ok" << endl;
+                queue<pair<int, int>> q;
+
+                q.push({i, j});
+                visited[i][j] = true;
+
+                while (!q.empty())
+                {
+                    int x = q.front().first;
+                    int y = q.front().second;
+                    q.pop();
+
+                    for (int k = 0; k < 4; k++)
+                    {
+                        int nx = x + dx[k];
+                        int ny = y + dy[k];
+
+                        if (!visited[nx][ny] && arr2[nx][ny] == 0)
+                        {
+                            q.push({nx, ny});
+                            visited[nx][ny] = true;
+                            arr2[nx][ny] = 2;
+                        }
+                    }
+                }
             }
         }
     }
-    return ans = max(count, ans);
+
+    memset(visited, false, sizeof(visited));
+
+    int tmp = 0;
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            if (arr2[i][j] == 0)
+                tmp++;
+        }
+    }
+
+    if (tmp > answer)
+    {
+        answer = tmp;
+    }
+}
+
+void stand_wall()
+{
+    if (wall_count == 0)
+    {
+        return bfs();
+    }
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            if (arr[i][j] != 0)
+                continue;
+
+            arr[i][j] = 1;
+            wall_count--;
+            stand_wall();
+            wall_count++;
+            arr[i][j] = 0;
+        }
+    }
 }
 
 int main()
 {
     cin >> N >> M;
 
+    memset(arr, -1, sizeof(arr));
+    memset(arr2, -1, sizeof(arr2));
+
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < M; j++)
         {
-            cin >> map[i][j];
-            if(map[i][j] == 0)
-            {
-                virus.push_back({i, j});
-            }
+            cin >> arr[i][j];
+            visited[i][j] = false;
         }
     }
-    cout << dfs(0, 0);
+    stand_wall();
+    cout << answer;
 }
