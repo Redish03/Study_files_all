@@ -16,7 +16,8 @@
     "stdio.h": "c",
     "istream": "cpp",
     "xtree": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "xutility": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
