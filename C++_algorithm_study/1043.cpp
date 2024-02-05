@@ -4,28 +4,55 @@
 using namespace std;
 
 int N, M;
-vector<int> v;
+vector<bool> knowPerson(N, false);
+int partyPossible = 0;
 
-int main()
+void input()
 {
     cin >> N >> M;
 
-    int people_cnt;
-    cin >> people_cnt;
-    for (int i = 0; i < people_cnt; i++)
+    int knowTruthPersonCnt;
+    cin >> knowTruthPersonCnt;
+    for (int i = 0; i < knowTruthPersonCnt; i++)
     {
-        int a;
-        cin >> a;
-        v.push_back(a);
+        int num;
+        cin >> num;
+        knowPerson[num] = true;
     }
 
     for (int i = 0; i < M; i++)
     {
-        int num;
-        cin >> num;
-        for (int j = 0; j < num; j++)
+        int size;
+        bool isContainKnowingPerson = false;
+        vector<int> v;
+        cin >> size;
+        for (int j = 0; j < size; j++)
         {
-            
+            int num;
+            cin >> num;
+            v.push_back(num);
+
+            if (knowPerson[num])
+            {
+                isContainKnowingPerson = true;
+            }
+        }
+
+        if (isContainKnowingPerson)
+        {
+            for (int j = 0; j < v.size(); j++)
+            {
+                knowPerson[v[j]] = true;
+            }
         }
     }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    input();
 }
