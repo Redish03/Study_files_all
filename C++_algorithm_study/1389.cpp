@@ -1,38 +1,43 @@
 #include <iostream>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
 int N, M;
-vector<vector<int>> v[101];
+vector<int> arr[5000];
 queue<int> q;
-bool visited[101][5001] = {
-    false,
-};
-vector<int> Min;
-int Min_2;
-int min_s;
-int Min_i = 99999999;
-int count = 1;
+vector<bool> visited(100, false);
 
-void bfs(int n)
+int bfs(int start)
 {
-    q.push(n);
+    q.push(start);
+
+    int bacon_num = 0;
+    int cnt = 1;
     while (!q.empty())
     {
         int x = q.front();
         q.pop();
 
-        for (int i = 0; i < v[x].size(); i++)
+        for (int i = 0; i < arr[x].size(); i++)
         {
-            if (visited[x][i])
+            int nx = arr[x][i];
+
+            if (visited[nx])
+            {
                 continue;
-            q.push(i);
-            min_s += count;
+            }
+            visited[nx] = true;
+            bacon_num += cnt;
+            q.push(nx);
         }
-        count++;
+        cnt++;
     }
-    Min.push_back(min_s);
+
+    fill(visited.begin(), visited.end(), false);
+
+    return bacon_num;
 }
 
 int main()
@@ -42,23 +47,22 @@ int main()
     for (int i = 0; i < M; i++)
     {
         int a, b;
-
         cin >> a >> b;
-        v[a].push_back(b);
-        v[b].push_back(a);
+
+        arr[a].push_back(b);
+        arr[b].push_back(a);
     }
 
-    for (int i = 0; i < N; i++)
+    int idx = 0, min_bacon_num = 987654321;
+    for (int i = 1; i <= N; i++)
     {
-        bfs(i);
-    }
-
-    for (int i = 0; i < Min.size(); i++)
-    {
-        if (Min_2 > Min[i])
+        int BFS_num = bfs(i);
+        if (min_bacon_num > BFS_num)
         {
-            Min_2 = Min[i];
-            Min_i = i;
+            idx = i;
+            min_bacon_num = BFS_num;
         }
     }
+
+    cout << idx;
 }
