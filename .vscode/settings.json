@@ -17,7 +17,8 @@
     "istream": "cpp",
     "xtree": "cpp",
     "ios": "cpp",
-    "xutility": "cpp"
+    "xutility": "cpp",
+    "clocale": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }
